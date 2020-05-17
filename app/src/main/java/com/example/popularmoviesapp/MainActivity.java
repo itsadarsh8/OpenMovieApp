@@ -139,13 +139,11 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(movieDetailsList);
             progressbar.setVisibility(View.GONE);
 
-<<<<<<< HEAD
-=======
 
             recyclerViewAdapter=new RecyclerViewAdapter(MainActivity.this,movieDetailsList);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
             recyclerView.setAdapter(recyclerViewAdapter);
->>>>>>> b2321b418e39991bf90a97b1fc2412f267f48b30
+
 
             recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this, movieDetailsList);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
