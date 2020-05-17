@@ -8,61 +8,67 @@
     android:orientation="vertical"
     tools:context=".MovieDetailActivity">
 
-    <ImageView
-        android:id="@+id/image"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/title"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Deadpool 2"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp" />
+            android:orientation="vertical">
 
-        <RelativeLayout
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp">
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
 
             <TextView
-                android:id="@+id/rating"
-                android:layout_width="wrap_content"
+                android:id="@+id/title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rating:7.2"
-                android:textColor="#FFCA28"
-                android:textSize="16sp" />
+                android:text="Deadpool 2"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp" />
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:gravity="bottom"
-                android:text="Release Date: 2008-07-16"
-                android:textColor="#6F6D67"
-                android:textSize="12sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rating:7.2"
+                    android:textColor="#FFCA28"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="bottom"
+                    android:text="Release Date: 2008-07-16"
+                    android:textColor="#6F6D67"
+                    android:textSize="12sp" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/overView"
@@ -74,8 +80,10 @@
                 android:textColor="#6F6D67"
                 android:textSize="20sp" />
 
-        </ScrollView>
-    </LinearLayout>
+
+        </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>
