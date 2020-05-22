@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.popularmoviesapp.MovieDetailActivity;
 import com.example.popularmoviesapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.VideoViewHolder> {
 
@@ -38,8 +34,8 @@ public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder,final int position) {
-        holder.trailorView.setText("Trailor"+String.valueOf(position+1));
-        holder.trailorView.setOnClickListener(new View.OnClickListener() {
+        holder.trailerView.setText("Trailer "+String.valueOf(position+1));
+        holder.trailerView.setOnClickListener(new View.OnClickListener() {
             String id= movieLinkList.get(position);
             @Override
             public void onClick(View v) {
@@ -61,11 +57,11 @@ public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.Vi
     }
 
     public class VideoViewHolder extends RecyclerView.ViewHolder {
-        private TextView trailorView;
+        private TextView trailerView;
 
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
-            trailorView=itemView.findViewById(R.id.trailer_textView);
+            trailerView=itemView.findViewById(R.id.trailer_textView);
 
 
         }

@@ -155,12 +155,6 @@ public class MovieUtils {
                 MovieDetails movieDetails = new MovieDetails(title, date, rating, overview, image, id);
                 arrayList.add(movieDetails);
 
-                Log.i(LOG_OUTPUT, title);
-                Log.i(LOG_OUTPUT, date);
-                Log.i(LOG_OUTPUT, overview);
-                Log.i(LOG_OUTPUT, image);
-                Log.i(LOG_OUTPUT, rating);
-                Log.i(LOG_OUTPUT, id);
             }
 
         } catch (JSONException e) {
@@ -184,7 +178,6 @@ public class MovieUtils {
                 String link="https://www.youtube.com/watch?v="+key;
                 arrayList.add(link);
 
-                Log.i(LOG_OUTPUT, link);
 
             }
 

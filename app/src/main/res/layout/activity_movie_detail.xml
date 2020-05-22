@@ -88,6 +88,54 @@
                     <View
                         android:layout_width="100dp"
                         android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:background="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="8dp"
+                        android:text="Watch Trailer"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp" />
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="#FFFFFF" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/trailer_load_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trailer_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:background="#FFFFFF" />
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:layout_centerInParent="true"
                         android:background="#FFFFFF" />
 
                     <View
@@ -99,19 +147,27 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/trailor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
                     android:gravity="center"
-                    android:text="Watch Trailor"
+                    android:text="People Reviews"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
 
+                <ImageView
+                    android:id="@+id/review_load_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/trailer_recycler_view"
+                    android:id="@+id/reviews_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
