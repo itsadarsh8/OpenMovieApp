@@ -46,7 +46,7 @@ public class MovieDetailRecyclerViewAdapter extends RecyclerView.Adapter<MovieDe
         holder.rating.setText(mMovieDetailsList.get(position).getMovieRatings());
         final String link = "https://image.tmdb.org/t/p/w500/" + mMovieDetailsList.get(position).getMovieImage();
 
-        Picasso.get().load(link).placeholder(R.drawable.load3).into(holder.imageView);
+        Picasso.get().load(link).placeholder(R.drawable.load5).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
 
             @Override

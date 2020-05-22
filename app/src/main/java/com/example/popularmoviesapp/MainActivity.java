@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(mMovieDetailRecyclerViewAdapter);
 
 
+
             mMovieDetailRecyclerViewAdapter = new MovieDetailRecyclerViewAdapter(MainActivity.this, movieDetailsList);
           //  recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));

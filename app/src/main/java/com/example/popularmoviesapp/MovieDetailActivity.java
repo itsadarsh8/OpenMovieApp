@@ -1,6 +1,9 @@
 package com.example.popularmoviesapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +12,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.popularmoviesapp.Adapters.MovieDetailRecyclerViewAdapter;
+import com.example.popularmoviesapp.Adapters.MovieVideoAdapter;
 import com.example.popularmoviesapp.Objects.MovieReview;
 import com.example.popularmoviesapp.Utility.MovieUtils;
 import com.squareup.picasso.Picasso;
@@ -19,6 +24,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     MovieVideoAsyncTask asyncTaskVideo;
     MovieReviewAsyncTask asyncTaskReview;
+    String mid;
+    RecyclerView videoRecyclerView;
+    MovieVideoAdapter movieVideoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +34,35 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
 
         Intent intent = getIntent();
+        updateDetails(intent);
+
+        ArrayList<String> movieVideoArrayList=new ArrayList<String>();
+        videoRecyclerView=findViewById(R.id.trailer_recycler_view);
+        videoRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
+        movieVideoAdapter=new MovieVideoAdapter(movieVideoArrayList,MovieDetailActivity.this);
+        videoRecyclerView.setAdapter(movieVideoAdapter);
+
+
+
+        asyncTaskVideo = new MovieVideoAsyncTask();
+        asyncTaskVideo.execute(getVideoApiLink(mid));
+
+        asyncTaskReview = new MovieReviewAsyncTask();
+        asyncTaskReview.execute(getReviewApiLink(mid));
+
+
+
+    }
+
+    //Updates the details from MovieDetail Intent passed
+    private void updateDetails(Intent intent) {
         String title = intent.getStringExtra("title");
         String overview = intent.getStringExtra("overview");
         String date = intent.getStringExtra("date");
         String rating = intent.getStringExtra("rating");
         String image = intent.getStringExtra("image");
         String id = intent.getStringExtra("id");
+        mid=id;
 
         Log.i("MovieDetailActivity-output", title);
         Log.i("MovieDetailActivity-output", overview);
@@ -50,24 +81,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingTextView.setText("Rating: " + rating);
         overViewTextView.setText(overview);
 
-        Picasso.get().load(image).placeholder(R.drawable.load3).into(imageView);
-
-
-        asyncTaskVideo = new MovieVideoAsyncTask();
-        asyncTaskVideo.execute(getVideoApiLink(id));
-
-        asyncTaskReview = new MovieReviewAsyncTask();
-        asyncTaskReview.execute(getReviewApiLink(id));
-
+        Picasso.get().load(image).placeholder(R.drawable.load5).into(imageView);
 
     }
-
     //Creates VideoApi link from id
     private String getVideoApiLink(String id) {
         String videoLink = "https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=8f067240d8717f510b4c79abe9f714b7&language=en-US";
         return videoLink;
     }
-
+    //Creates ReviewApi link from id
     private String getReviewApiLink(String id) {
         String reviewLink = "https://api.themoviedb.org/3/movie/" + id + "/reviews?api_key=8f067240d8717f510b4c79abe9f714b7&language=en-US&page=1";
         return reviewLink;
@@ -79,6 +101,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         protected ArrayList<String> doInBackground(String... strings) {
 
             return MovieUtils.fetchMovieVideo(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> list) {
+            super.onPostExecute(list);
+
+            movieVideoAdapter=new MovieVideoAdapter(list,MovieDetailActivity.this);
+            videoRecyclerView.setAdapter(movieVideoAdapter);
+
         }
     }
 
