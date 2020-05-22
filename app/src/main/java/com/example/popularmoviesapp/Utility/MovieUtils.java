@@ -1,7 +1,9 @@
-package com.example.popularmoviesapp;
+package com.example.popularmoviesapp.Utility;
 
-import android.content.Context;
 import android.util.Log;
+
+import com.example.popularmoviesapp.Objects.MovieDetails;
+import com.example.popularmoviesapp.Objects.MovieReview;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +18,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovieUtils {
     private static String LOG_ERROR = "MovieUtilsClass-Error";
@@ -24,6 +25,36 @@ public class MovieUtils {
 
     //Call directly by class name
     private MovieUtils() {
+    }
+
+    public static ArrayList<MovieReview> fetchMovieReview(String requestUrl) {
+        URL url = createUrl(requestUrl);
+
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_ERROR, "Problem making the HTTP request.", e);
+        }
+
+        ArrayList<MovieReview> MovieData = fetchMovieReviewFromJson(jsonResponse);
+        return MovieData;
+
+    }
+
+    public static ArrayList<String> fetchMovieVideo(String requestUrl) {
+        URL url = createUrl(requestUrl);
+
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_ERROR, "Problem making the HTTP request.", e);
+        }
+
+        ArrayList<String> MovieData = fetchMovieVideoFromJson(jsonResponse);
+        return MovieData;
+
     }
 
     public static ArrayList<MovieDetails> fetchMovieDetails(String requestUrl) {
@@ -40,6 +71,7 @@ public class MovieUtils {
         return MovieData;
 
     }
+
 
     //creating url
     private static URL createUrl(String stringUrl) {
@@ -104,6 +136,7 @@ public class MovieUtils {
         return output.toString();
     }
 
+    //All details of Movie
     public static ArrayList<MovieDetails> fetchMovieDataFromJson(String movieJson) {
         ArrayList<MovieDetails> arrayList = new ArrayList<>();
         try {
@@ -117,8 +150,9 @@ public class MovieUtils {
                 String overview = jsonObject.getString("overview");
                 String rating = jsonObject.getString("vote_average");
                 String image = jsonObject.getString("poster_path");
+                String id = jsonObject.getString("id");
 
-                MovieDetails movieDetails = new MovieDetails(title, date, rating, overview, image);
+                MovieDetails movieDetails = new MovieDetails(title, date, rating, overview, image, id);
                 arrayList.add(movieDetails);
 
                 Log.i(LOG_OUTPUT, title);
@@ -126,6 +160,60 @@ public class MovieUtils {
                 Log.i(LOG_OUTPUT, overview);
                 Log.i(LOG_OUTPUT, image);
                 Log.i(LOG_OUTPUT, rating);
+                Log.i(LOG_OUTPUT, id);
+            }
+
+        } catch (JSONException e) {
+            Log.e(LOG_ERROR, "Error fetching features from json data" + e);
+        }
+
+
+        return arrayList;
+    }
+
+    //All Video Link of Movie
+    public static ArrayList<String> fetchMovieVideoFromJson(String movieJson) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        try {
+            JSONObject baseJsonObject = new JSONObject(movieJson);
+            JSONArray jsonArray = baseJsonObject.getJSONArray("results");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String key = jsonObject.getString("key");
+                String link="https://www.youtube.com/watch?v="+key;
+                arrayList.add(link);
+
+                Log.i(LOG_OUTPUT, link);
+
+            }
+
+        } catch (JSONException e) {
+            Log.e(LOG_ERROR, "Error fetching features from json data" + e);
+        }
+
+
+        return arrayList;
+    }
+
+    //All Review of Movie
+    public static ArrayList<MovieReview> fetchMovieReviewFromJson(String movieJson) {
+        ArrayList<MovieReview> arrayList = new ArrayList<>();
+        try {
+            JSONObject baseJsonObject = new JSONObject(movieJson);
+            JSONArray jsonArray = baseJsonObject.getJSONArray("results");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String author = jsonObject.getString("author");
+                String content = jsonObject.getString("content");
+                MovieReview movieReview=new MovieReview(author,content);
+
+                arrayList.add(movieReview);
+
+                Log.i(LOG_OUTPUT, author);
+                Log.i(LOG_OUTPUT, content);
+
             }
 
         } catch (JSONException e) {

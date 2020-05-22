@@ -1,4 +1,4 @@
-package com.example.popularmoviesapp;
+package com.example.popularmoviesapp.Objects;
 
 public class MovieDetails {
 
@@ -7,13 +7,16 @@ public class MovieDetails {
     private String mMovieImage;
     private String mMovieDate;
     private String mMovieSynopsis;
+    private String mMovieId;
 
-    public MovieDetails(String movieTitle, String movieDate, String movieRatings, String movieSynopsis, String movieImage) {
+    public MovieDetails(String movieTitle, String movieDate, String movieRatings, String movieSynopsis, String movieImage, String movieId) {
         mMovieDate = movieDate;
         mMovieImage = movieImage;
         mMovieRatings = movieRatings;
         mMovieSynopsis = movieSynopsis;
         mMovieTitle = movieTitle;
+        mMovieId=movieId;
+
     }
 
     public String getMovieTitle() {
@@ -36,5 +39,5 @@ public class MovieDetails {
         return mMovieSynopsis;
     }
 
-
+    public String getMovieId() { return mMovieId; }
 }

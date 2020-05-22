@@ -1,8 +1,7 @@
-package com.example.popularmoviesapp;
+package com.example.popularmoviesapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.popularmoviesapp.MovieDetailActivity;
+import com.example.popularmoviesapp.Objects.MovieDetails;
+import com.example.popularmoviesapp.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class MovieDetailRecyclerViewAdapter extends RecyclerView.Adapter<MovieDetailRecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<MovieDetails> mMovieDetailsList;
 
-    public RecyclerViewAdapter(Context context, List<MovieDetails> movieDetailsList) {
+    public MovieDetailRecyclerViewAdapter(Context context, List<MovieDetails> movieDetailsList) {
         mContext = context;
         mMovieDetailsList = movieDetailsList;
     }
@@ -58,6 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 intent.putExtra("overview", movieDetails.getMovieSynopsis());
                 intent.putExtra("date", movieDetails.getMovieDate());
                 intent.putExtra("image", link);
+                intent.putExtra("id",movieDetails.getMovieId());
                 mContext.startActivity(intent);
             }
         });

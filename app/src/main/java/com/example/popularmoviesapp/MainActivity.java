@@ -9,12 +9,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.popularmoviesapp.Adapters.MovieDetailRecyclerViewAdapter;
+import com.example.popularmoviesapp.Objects.MovieDetails;
+import com.example.popularmoviesapp.Utility.MovieUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private int flag = 1;
-    RecyclerViewAdapter recyclerViewAdapter;
+    MovieDetailRecyclerViewAdapter mMovieDetailRecyclerViewAdapter;
     ArrayList<MovieDetails> movieDetailsArrayList;
     RecyclerView recyclerView;
     IamAsyncTask asyncTask;
     IamAsyncTask asyncTask2;
     ProgressBar progressbar;
     TextView emptyTextView;
+
 
 
     @Override
@@ -43,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
         movieDetailsArrayList = new ArrayList<MovieDetails>();
         recyclerView = findViewById(R.id.recycler_view);
+      //  recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         //Initializing adapter with empty arrayList
-        recyclerViewAdapter = new RecyclerViewAdapter(this, movieDetailsArrayList);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        mMovieDetailRecyclerViewAdapter = new MovieDetailRecyclerViewAdapter(this, movieDetailsArrayList);
+        recyclerView.setAdapter(mMovieDetailRecyclerViewAdapter);
 
 
         ConnectivityManager CM = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -140,14 +145,15 @@ public class MainActivity extends AppCompatActivity {
             progressbar.setVisibility(View.GONE);
 
 
-            recyclerViewAdapter=new RecyclerViewAdapter(MainActivity.this,movieDetailsList);
+            mMovieDetailRecyclerViewAdapter =new MovieDetailRecyclerViewAdapter(MainActivity.this,movieDetailsList);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
-            recyclerView.setAdapter(recyclerViewAdapter);
+            recyclerView.setAdapter(mMovieDetailRecyclerViewAdapter);
 
 
-            recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this, movieDetailsList);
+            mMovieDetailRecyclerViewAdapter = new MovieDetailRecyclerViewAdapter(MainActivity.this, movieDetailsList);
+          //  recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-            recyclerView.setAdapter(recyclerViewAdapter);
+            recyclerView.setAdapter(mMovieDetailRecyclerViewAdapter);
             recyclerView.setVisibility(View.VISIBLE);
 
 
