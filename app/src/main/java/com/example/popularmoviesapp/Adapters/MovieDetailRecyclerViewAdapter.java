@@ -59,7 +59,7 @@ public class MovieDetailRecyclerViewAdapter extends RecyclerView.Adapter<MovieDe
                 intent.putExtra("overview", movieDetails.getMovieSynopsis());
                 intent.putExtra("date", movieDetails.getMovieDate());
                 intent.putExtra("image", link);
-                intent.putExtra("id",movieDetails.getMovieId());
+                intent.putExtra("id", movieDetails.getMovieId());
                 mContext.startActivity(intent);
             }
         });

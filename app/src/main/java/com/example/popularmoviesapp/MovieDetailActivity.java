@@ -1,6 +1,8 @@
 package com.example.popularmoviesapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +16,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.popularmoviesapp.Adapters.MovieReviewAdapter;
 import com.example.popularmoviesapp.Adapters.MovieVideoAdapter;
+import com.example.popularmoviesapp.ArchitectureComponents.FavouritesViewModel;
+import com.example.popularmoviesapp.Objects.FavouriteDetails;
 import com.example.popularmoviesapp.Objects.MovieReview;
 import com.example.popularmoviesapp.Utility.MovieUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,13 +34,17 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     MovieVideoAsyncTask asyncTaskVideo;
     MovieReviewAsyncTask asyncTaskReview;
-    String mid;
+    String mid, title, overView, date, rating;
     RecyclerView videoRecyclerView;
     MovieVideoAdapter movieVideoAdapter;
     RecyclerView reviewRecyclerView;
     MovieReviewAdapter movieReviewAdapter;
     ImageView reviewLoadImage;
     ImageView videoLoadImage;
+    FavouritesViewModel favouritesViewModel;
+    FavouriteDetails favouriteDetails;
+    int flag = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +56,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         updateVideo();
         updateReviews();
 
-        reviewLoadImage=findViewById(R.id.review_load_image);
-        videoLoadImage=findViewById(R.id.trailer_load_image);
+        reviewLoadImage = findViewById(R.id.review_load_image);
+        videoLoadImage = findViewById(R.id.trailer_load_image);
+        reviewLoadImage.setVisibility(View.VISIBLE);
+        videoLoadImage.setVisibility(View.VISIBLE);
 
         Picasso.get().load(R.drawable.load5).into(reviewLoadImage);
         Picasso.get().load(R.drawable.load5).into(videoLoadImage);
@@ -58,39 +70,61 @@ public class MovieDetailActivity extends AppCompatActivity {
         asyncTaskReview = new MovieReviewAsyncTask();
         asyncTaskReview.execute(getReviewApiLink(mid));
 
+        FloatingActionButton favButton = findViewById(R.id.set_favourite);
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag == 0) {
+                    addToFavourite();
+                    flag = 1;
 
+                } else {
+                    flag = 0;
+                    Toast.makeText(MovieDetailActivity.this, "Already added in favourite", Toast.LENGTH_SHORT).show();
+                }
 
+            }
+        });
+
+    }
+
+    private void addToFavourite() {
+        favouriteDetails = new FavouriteDetails(title, overView, date, rating);
+        favouritesViewModel = new FavouritesViewModel(this.getApplication());
+        favouritesViewModel.insert(favouriteDetails);
+        Toast.makeText(MovieDetailActivity.this, "Added to favourite", Toast.LENGTH_SHORT).show();
     }
 
     //Initiate Reviews View with empty ArrayList
     private void updateReviews() {
-        ArrayList<MovieReview> movieReviewArrayList=new ArrayList<>();
-        reviewRecyclerView=findViewById(R.id.reviews_recycler_view);
+        ArrayList<MovieReview> movieReviewArrayList = new ArrayList<>();
+        reviewRecyclerView = findViewById(R.id.reviews_recycler_view);
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        movieReviewAdapter=new MovieReviewAdapter(movieReviewArrayList, MovieDetailActivity.this);
+        movieReviewAdapter = new MovieReviewAdapter(movieReviewArrayList, MovieDetailActivity.this);
         reviewRecyclerView.setAdapter(movieVideoAdapter);
     }
 
     //Initiate Video View with empty ArrayList
     private void updateVideo() {
-        ArrayList<String> movieVideoArrayList=new ArrayList<String>();
-        videoRecyclerView=findViewById(R.id.trailer_recycler_view);
-        videoRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-        movieVideoAdapter=new MovieVideoAdapter(movieVideoArrayList, MovieDetailActivity.this);
+        ArrayList<String> movieVideoArrayList = new ArrayList<String>();
+        videoRecyclerView = findViewById(R.id.trailer_recycler_view);
+        videoRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        movieVideoAdapter = new MovieVideoAdapter(movieVideoArrayList, MovieDetailActivity.this);
         videoRecyclerView.setAdapter(movieVideoAdapter);
     }
+
     //Updates the details from MovieDetail Intent passed
     private void updateDetails(Intent intent) {
-        String title = intent.getStringExtra("title");
-        String overview = intent.getStringExtra("overview");
-        String date = intent.getStringExtra("date");
-        String rating = intent.getStringExtra("rating");
+        title = intent.getStringExtra("title");
+        overView = intent.getStringExtra("overview");
+        date = intent.getStringExtra("date");
+        rating = intent.getStringExtra("rating");
         String image = intent.getStringExtra("image");
         String id = intent.getStringExtra("id");
-        mid=id;
+        mid = id;
 
         Log.i("MovieDetailActivity-output", title);
-        Log.i("MovieDetailActivity-output", overview);
+        Log.i("MovieDetailActivity-output", overView);
         Log.i("MovieDetailActivity-output", date);
         Log.i("MovieDetailActivity-output", rating);
         Log.i("MovieDetailActivity-output", image);
@@ -104,19 +138,21 @@ public class MovieDetailActivity extends AppCompatActivity {
         titleTextView.setText(title);
         dateTextView.setText("Release Date:" + date);
         ratingTextView.setText("Rating: " + rating);
-        overViewTextView.setText(overview);
+        overViewTextView.setText(overView);
 
         Picasso.get().load(image).placeholder(R.drawable.load5).into(imageView);
 
     }
+
     //Creates VideoApi link from id
     private String getVideoApiLink(String id) {
         String videoLink = "https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=8f067240d8717f510b4c79abe9f714b7&language=en-US";
         return videoLink;
     }
+
     //Creates ReviewApi link from id
     private String getReviewApiLink(String id) {
-        String reviewLink = "https://api.themoviedb.org/3/movie/"+id+"/reviews?api_key=8f067240d8717f510b4c79abe9f714b7&language=en-US";
+        String reviewLink = "https://api.themoviedb.org/3/movie/" + id + "/reviews?api_key=8f067240d8717f510b4c79abe9f714b7&language=en-US";
         return reviewLink;
     }
 
@@ -125,7 +161,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if(videoRecyclerView.getVisibility()== View.VISIBLE){
+            if (videoRecyclerView.getVisibility() == View.VISIBLE) {
                 videoRecyclerView.setVisibility(View.GONE);
             }
             videoLoadImage.setVisibility(View.VISIBLE);
@@ -141,10 +177,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<String> list) {
             super.onPostExecute(list);
 
-            movieVideoAdapter=new MovieVideoAdapter(list,MovieDetailActivity.this);
+            movieVideoAdapter = new MovieVideoAdapter(list, MovieDetailActivity.this);
             videoRecyclerView.setAdapter(movieVideoAdapter);
 
-            if(videoRecyclerView.getVisibility()== View.GONE){
+            if (videoRecyclerView.getVisibility() == View.GONE) {
                 videoRecyclerView.setVisibility(View.VISIBLE);
             }
             videoLoadImage.setVisibility(View.GONE);
@@ -158,7 +194,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            if(reviewRecyclerView.getVisibility()== View.VISIBLE){
+            if (reviewRecyclerView.getVisibility() == View.VISIBLE) {
                 reviewRecyclerView.setVisibility(View.GONE);
             }
             reviewLoadImage.setVisibility(View.VISIBLE);
@@ -174,13 +210,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<MovieReview> movieReviews) {
             super.onPostExecute(movieReviews);
 
-            movieReviewAdapter=new MovieReviewAdapter(movieReviews,MovieDetailActivity.this);
+            movieReviewAdapter = new MovieReviewAdapter(movieReviews, MovieDetailActivity.this);
             reviewRecyclerView.setAdapter(movieReviewAdapter);
 
-            if(reviewRecyclerView.getVisibility()== View.GONE){
+            if (reviewRecyclerView.getVisibility() == View.GONE) {
                 reviewRecyclerView.setVisibility(View.VISIBLE);
+                reviewLoadImage.setVisibility(View.GONE);
+
             }
-            reviewLoadImage.setVisibility(View.GONE);
         }
     }
 }

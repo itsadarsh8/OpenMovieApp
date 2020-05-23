@@ -175,7 +175,7 @@ public class MovieUtils {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String key = jsonObject.getString("key");
-                String link="https://www.youtube.com/watch?v="+key;
+                String link = "https://www.youtube.com/watch?v=" + key;
                 arrayList.add(link);
 
 
@@ -200,7 +200,7 @@ public class MovieUtils {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String author = jsonObject.getString("author");
                 String content = jsonObject.getString("content");
-                MovieReview movieReview=new MovieReview(author,content);
+                MovieReview movieReview = new MovieReview(author, content);
 
                 arrayList.add(movieReview);
 

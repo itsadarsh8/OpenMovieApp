@@ -8,171 +8,190 @@
     android:orientation="vertical"
     tools:context=".MovieDetailActivity">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter" />
+            android:layout_height="wrap_content">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
                 android:orientation="vertical">
 
 
-                <TextView
-                    android:id="@+id/title"
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Deadpool 2"
-                    android:textColor="#FFFFFF"
-                    android:textSize="28sp" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="4dp">
-
-                    <TextView
-                        android:id="@+id/rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rating:7.2"
-                        android:textColor="#FFCA28"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="19dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="bottom"
-                        android:text="Release Date: 2008-07-16"
-                        android:textColor="#6F6D67"
-                        android:textSize="12sp" />
-
-
-                </RelativeLayout>
-
-
-                <TextView
-                    android:id="@+id/overView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:text="Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker."
-                    android:textColor="#6F6D67"
-                    android:textSize="20sp" />
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <View
-                        android:layout_width="100dp"
-                        android:layout_height="1dp"
-                        android:layout_centerVertical="true"
-                        android:background="#FFFFFF" />
 
                     <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Deadpool 2"
+                        android:textColor="#FFFFFF"
+                        android:textSize="28sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4dp">
+
+                        <TextView
+                            android:id="@+id/rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rating:7.2"
+                            android:textColor="#FFCA28"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="19dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="bottom"
+                            android:text="Release Date: 2008-07-16"
+                            android:textColor="#6F6D67"
+                            android:textSize="12sp" />
+
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/overView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker."
+                        android:textColor="#6F6D67"
+                        android:textSize="20sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:background="#FFFFFF" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="8dp"
+                            android:text="Watch Trailer"
+                            android:textColor="#FFFFFF"
+                            android:textSize="24sp" />
+
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="#FFFFFF" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/trailer_load_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/load5" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/trailer_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="1dp"
+                            android:background="#FFFFFF" />
+
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="1dp"
+                            android:layout_centerInParent="true"
+                            android:background="#FFFFFF" />
+
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:background="#FFFFFF" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Watch Trailer"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:text="People Reviews"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp" />
 
-                    <View
-                        android:layout_width="100dp"
-                        android:layout_height="1dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:background="#FFFFFF" />
-
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/trailer_load_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    <ImageView
+                        android:id="@+id/review_load_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/load5" />
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/trailer_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
-
-                    <View
-                        android:layout_width="100dp"
-                        android:layout_height="1dp"
-                        android:background="#FFFFFF" />
-
-                    <View
-                        android:layout_width="100dp"
-                        android:layout_height="1dp"
-                        android:layout_centerInParent="true"
-                        android:background="#FFFFFF" />
-
-                    <View
-                        android:layout_width="100dp"
-                        android:layout_height="1dp"
-                        android:layout_alignParentEnd="true"
-                        android:background="#FFFFFF" />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"
-                    android:text="People Reviews"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
-
-                <ImageView
-                    android:id="@+id/review_load_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/reviews_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/reviews_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"/>
-
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/set_favourite"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="16dp"
+            android:src="@android:drawable/btn_star" />
+
+    </RelativeLayout>
 
 
 </LinearLayout>

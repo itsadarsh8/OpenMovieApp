@@ -1,5 +1,6 @@
 package com.example.popularmoviesapp.Objects;
 
+
 public class MovieDetails {
 
     private String mMovieTitle;
@@ -15,7 +16,7 @@ public class MovieDetails {
         mMovieRatings = movieRatings;
         mMovieSynopsis = movieSynopsis;
         mMovieTitle = movieTitle;
-        mMovieId=movieId;
+        mMovieId = movieId;
 
     }
 
@@ -39,5 +40,7 @@ public class MovieDetails {
         return mMovieSynopsis;
     }
 
-    public String getMovieId() { return mMovieId; }
+    public String getMovieId() {
+        return mMovieId;
+    }
 }

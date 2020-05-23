@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.popularmoviesapp.R;
 
 import java.util.ArrayList;
@@ -22,21 +23,22 @@ public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.Vi
 
     public MovieVideoAdapter(ArrayList<String> movieLinkList, Context context) {
         this.movieLinkList = movieLinkList;
-        mContext=context;
+        mContext = context;
     }
 
     @NonNull
     @Override
     public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.trailor_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trailor_layout, parent, false);
         return new VideoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VideoViewHolder holder,final int position) {
-        holder.trailerView.setText("Trailer "+String.valueOf(position+1));
+    public void onBindViewHolder(@NonNull VideoViewHolder holder, final int position) {
+        holder.trailerView.setText("Trailer " + String.valueOf(position + 1));
         holder.trailerView.setOnClickListener(new View.OnClickListener() {
-            String id= movieLinkList.get(position);
+            String id = movieLinkList.get(position);
+
             @Override
             public void onClick(View v) {
 
@@ -61,11 +63,13 @@ public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.Vi
 
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
-            trailerView=itemView.findViewById(R.id.trailer_textView);
+            trailerView = itemView.findViewById(R.id.trailer_textView);
 
 
         }
-    }{
+    }
+
+    {
 
     }
 }
