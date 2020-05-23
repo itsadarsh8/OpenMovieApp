@@ -1,6 +1,7 @@
 package com.example.popularmoviesapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +46,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     FavouritesViewModel favouritesViewModel;
     FavouriteDetails favouriteDetails;
     int flag = 0;
+    List<FavouriteDetails> allFavouriteList;
 
 
     @Override
@@ -60,6 +63,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         videoLoadImage = findViewById(R.id.trailer_load_image);
         reviewLoadImage.setVisibility(View.VISIBLE);
         videoLoadImage.setVisibility(View.VISIBLE);
+        //  FloatingActionButton floatingActionButton=findViewById(R.id.)
 
         Picasso.get().load(R.drawable.load5).into(reviewLoadImage);
         Picasso.get().load(R.drawable.load5).into(videoLoadImage);
@@ -70,29 +74,56 @@ public class MovieDetailActivity extends AppCompatActivity {
         asyncTaskReview = new MovieReviewAsyncTask();
         asyncTaskReview.execute(getReviewApiLink(mid));
 
+
         FloatingActionButton favButton = findViewById(R.id.set_favourite);
         favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                for (int i = 0; i < allFavouriteList.size(); i++) {
+                    if (allFavouriteList.get(i).getId() == Integer.parseInt(mid)) {
+                        flag = 1;
+                    }
+                }
+
                 if (flag == 0) {
+
                     addToFavourite();
                     flag = 1;
-
                 } else {
                     flag = 0;
-                    Toast.makeText(MovieDetailActivity.this, "Already added in favourite", Toast.LENGTH_SHORT).show();
+                    deleteFromFavourite();
                 }
+
+            }
+        });
+
+        favouritesViewModel = ViewModelProviders.of(this).get(FavouritesViewModel.class);
+        favouritesViewModel.getAllFavourites().observe(this, new Observer<List<FavouriteDetails>>() {
+            @Override
+            public void onChanged(List<FavouriteDetails> favouriteDetails) {
+                allFavouriteList = favouriteDetails;
+
 
             }
         });
 
     }
 
+    private void deleteFromFavourite() {
+        favouriteDetails = new FavouriteDetails(Integer.parseInt(mid), title, overView, date, rating);
+        favouritesViewModel.delete(favouriteDetails);
+        Toast.makeText(MovieDetailActivity.this, "Deleted from favourite", Toast.LENGTH_SHORT).show();
+
+    }
+
     private void addToFavourite() {
-        favouriteDetails = new FavouriteDetails(title, overView, date, rating);
-        favouritesViewModel = new FavouritesViewModel(this.getApplication());
+
+
+        favouriteDetails = new FavouriteDetails(Integer.parseInt(mid), title, overView, date, rating);
         favouritesViewModel.insert(favouriteDetails);
         Toast.makeText(MovieDetailActivity.this, "Added to favourite", Toast.LENGTH_SHORT).show();
+
     }
 
     //Initiate Reviews View with empty ArrayList

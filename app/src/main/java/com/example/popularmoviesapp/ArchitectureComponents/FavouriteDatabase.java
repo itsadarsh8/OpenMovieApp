@@ -54,9 +54,9 @@ public abstract class FavouriteDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            favouriteDao.insert(new FavouriteDetails("Title 1", "Discription 1", "2019-12-07", "5.6"));
-            favouriteDao.insert(new FavouriteDetails("Title 2", "Discription 2", "2019-12-08", "6.6"));
-            favouriteDao.insert(new FavouriteDetails("Title 3", "Discription 3", "2019-12-09", "7.6"));
+            favouriteDao.insert(new FavouriteDetails(1,"Title 1", "Discription 1", "2019-12-07", "5.6"));
+            favouriteDao.insert(new FavouriteDetails(2,"Title 2", "Discription 2", "2019-12-08", "6.6"));
+            favouriteDao.insert(new FavouriteDetails(3,"Title 3", "Discription 3", "2019-12-09", "7.6"));
 
             return null;
         }

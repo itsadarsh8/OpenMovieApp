@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.example.popularmoviesapp.Objects.FavouriteDetails;
+import com.example.popularmoviesapp.Objects.MovieReview;
 
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class FavouriteRepository {
     public LiveData<List<FavouriteDetails>> getAllFavourites() {
         return mAllFavourites;
     }
+
+
 
     private static class insertAsyncTask extends AsyncTask<FavouriteDetails, Void, Void> {
         FavouriteDao cFavouriteDao;

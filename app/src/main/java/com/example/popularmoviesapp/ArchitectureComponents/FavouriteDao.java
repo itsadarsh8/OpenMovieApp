@@ -23,4 +23,5 @@ public interface FavouriteDao {
     LiveData<List<FavouriteDetails>> getAllFavourite();
 
 
+
 }
